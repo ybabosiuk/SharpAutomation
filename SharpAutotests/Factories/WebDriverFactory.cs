@@ -11,37 +11,44 @@ namespace SharpAutotests.Factories
 {
     class WebDriverFactory
     {
-        private static readonly IDictionary<string, IWebDriver> Drivers = new Dictionary<string, IWebDriver>();
+        public enum BrowserType
+        {
+            Chrome,
+            Firefox,
+            IE
+        }
+
+        private static readonly IDictionary<BrowserType, IWebDriver> Drivers = new Dictionary<BrowserType, IWebDriver>();
 
         public static IWebDriver Driver { get; private set; }
     
-        public static void InitBrowser(string browserName)
+        public static void InitBrowser(BrowserType browserName)
         {
             switch (browserName)
             {
-                case "Firefox":
+                case BrowserType.Firefox:
                     if (Driver == null)
                     {
                         Driver = new FirefoxDriver();
-                        Drivers.Add("Firefox", Driver);
+                        Drivers.Add(BrowserType.Firefox, Driver);
                     }
                     break;
 
-                case "Chrome":
+                case BrowserType.Chrome:
                     if (Driver == null)
                     {
                         Driver = new ChromeDriver();
-                        Drivers.Add("Chrome", Driver);
+                        Drivers.Add(BrowserType.Chrome, Driver);
                     }
                     break;
             }
         }
 
-        public static void CloseDriver(string browserName)
+        public static void CloseDriver(BrowserType browserType)
         {
-            if (Drivers.ContainsKey(browserName))
+            if (Drivers.ContainsKey(browserType))
             {
-                var driver = Drivers[browserName];
+                var driver = Drivers[browserType];
                 driver.Close();
                 driver.Quit();
             }

@@ -15,20 +15,20 @@ namespace SharpAutotests
         [BeforeScenario("Chrome")]
         public void BeforeScenario()
         {
-            WebDriverFactory.InitBrowser("Chrome");
+            WebDriverFactory.InitBrowser(WebDriverFactory.BrowserType.Chrome);
         }
 
         [AfterFeature("Chrome")]
         public static void AfterFeature()
         {
-            WebDriverFactory.CloseDriver("Chrome");
+            WebDriverFactory.CloseDriver(WebDriverFactory.BrowserType.Chrome);
             Init.PageFactory = null;
         }
 
         [AfterScenario("Chrome")]
         public void AfterScenario()
         {
-            WebDriverFactory.CloseDriver("Chrome");
+            WebDriverFactory.CloseDriver(WebDriverFactory.BrowserType.Chrome);
             Init.PageFactory = null;
         }
     }
