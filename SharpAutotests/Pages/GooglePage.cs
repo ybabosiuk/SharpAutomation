@@ -9,8 +9,8 @@ namespace SharpAutotests.Pages
 {
     class GooglePage : BaseObject
     {
-        public IWebElement searchField => driver.FindElement(By.Id("lst-ib"));
-        public IWebElement searchButton => driver.FindElement(By.CssSelector("input.lsb"));
+        public IWebElement SearchField => driver.FindElement(By.Id("lst-ib"));
+        public IWebElement SearchButton => driver.FindElement(By.CssSelector("input.lsb"));
 
         string pageUrl = "";
 

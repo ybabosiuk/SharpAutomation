@@ -1,4 +1,6 @@
-﻿using SharpAutotests.Factories;
+﻿using SharpAutotests.Config;
+using SharpAutotests.Factories;
+using SharpAutotests.Helpers;
 using SharpAutotests.Pages;
 using System;
 using System.Threading;
@@ -15,20 +17,21 @@ namespace SharpAutotests
         public void GivenUserGoToGooglePage()
         {
             WebDriverFactory.Driver.Url = "https://google.com";
+            LogHelpers.Write("Browser is opened");
         }
 
         [When(@"I add ""(.*)"" to search field")]
         public void WhenIAddToSearchField(string searchText)
         {
             GooglePage = Init.PageFactory.CreateInstance<GooglePage>();
-            GooglePage.searchField.SendKeys(searchText);
+            GooglePage.SearchField.SendKeys(searchText);
         }
 
         [When(@"I click on Search button")]
         public void WhenIClickOnSearchButton()
         {
             Thread.Sleep(1000);
-            GooglePage.searchButton.Click();
+            GooglePage.SearchButton.Click();
         }
 
 

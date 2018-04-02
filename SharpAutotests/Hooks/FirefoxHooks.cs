@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using SharpAutotests.Factories;
+using SharpAutotests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace SharpAutotests
         public void BeforeScenario()
         {
             WebDriverFactory.InitBrowser(WebDriverFactory.BrowserType.Firefox);
+            LogHelpers.CreateLogFile();
         }
 
         [AfterFeature("Firefox")]

@@ -1,11 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SharpAutotests.Factories
 {
@@ -16,6 +12,22 @@ namespace SharpAutotests.Factories
             Chrome,
             Firefox,
             IE
+        }
+
+        public static BrowserType ReturnBrowserType(string type)
+        {
+            switch (type)
+            {
+                case "Chrome":
+                    return BrowserType.Chrome;
+                case "Firefox":
+                    return BrowserType.Firefox;
+                case "IE":
+                    return BrowserType.IE;
+                default:
+                    return BrowserType.Chrome;
+            }
+
         }
 
         private static readonly IDictionary<BrowserType, IWebDriver> Drivers = new Dictionary<BrowserType, IWebDriver>();
@@ -62,6 +74,7 @@ namespace SharpAutotests.Factories
                 driver.Close();
                 driver.Quit();
             }
+            Drivers.Clear();
         }
     }
 }
