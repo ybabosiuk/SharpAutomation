@@ -64,6 +64,8 @@ namespace SharpAutotests.Factories
                 driver.Close();
                 driver.Quit();
             }
+            Drivers.Clear();
+            Driver = null;
         }
 
         public static void CloseAllDrivers()
@@ -75,6 +77,7 @@ namespace SharpAutotests.Factories
                 driver.Quit();
             }
             Drivers.Clear();
+            Driver = null;
         }
     }
 }

@@ -2,5 +2,6 @@
 <SharpAutotests>
   <RunSettings>
     <Browser>Chrome</Browser>
+    <Enviroment>QA</Enviroment>
   </RunSettings>
 </SharpAutotests>

@@ -12,5 +12,7 @@ namespace SharpAutotests.Config
         public static string TestType { get; set; }
 
         public static BrowserType BrowserType { get; set; }
+
+        public static string Enviroment { get; set; }
     }
 }

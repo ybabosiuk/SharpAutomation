@@ -30,5 +30,10 @@ namespace SharpAutotests.Helpers
             _streamWriter.Flush();
         }
 
+        public static void Close()
+        {
+            _streamWriter.Close();
+        }
+
     }
 }

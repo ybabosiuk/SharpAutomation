@@ -14,26 +14,30 @@ namespace SharpAutotests.Hooks
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
+        public BasicHooks()
+        {
+            ConfigReader.SetFrameworkSettings();
+        }
+
         [BeforeScenario]
         public void BeforeScenario()
         {
-            ConfigReader.SetFrameworkSettings();
             WebDriverFactory.InitBrowser(Settings.BrowserType);
             LogHelpers.CreateLogFile();
+            Init.PageFactory = new PageObjectFactory(WebDriverFactory.Driver);
         }
 
         [AfterFeature]
         public static void AfterFeature()
         {
             WebDriverFactory.CloseDriver(Settings.BrowserType);
-            Init.PageFactory = null;
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
             WebDriverFactory.CloseDriver(Settings.BrowserType);
-            Init.PageFactory = null;
+            LogHelpers.Close();
         }
     }
 }
