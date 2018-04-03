@@ -11,6 +11,7 @@ namespace SharpAutotests.Pages
     {
         public IWebElement SearchField => driver.FindElement(By.Id("lst-ib"));
         public IWebElement SearchButton => driver.FindElement(By.CssSelector("input.lsb"));
+        public IWebElement List => driver.FindElement(By.Id("ires"));
 
         string pageUrl = "";
 

@@ -5,6 +5,7 @@ using SharpAutotests.Pages;
 using System;
 using System.Threading;
 using TechTalk.SpecFlow;
+using SharpAutotests.Extensions;
 
 namespace SharpAutotests
 {
@@ -34,6 +35,11 @@ namespace SharpAutotests
             GooglePage.SearchButton.Click();
         }
 
+        [Then(@"list with results is not empty")]
+        public void ThenListWithResultsIsNotEmpty()
+        {
+            GooglePage.List.AssertElementPresent();
+        }
 
     }
 }
