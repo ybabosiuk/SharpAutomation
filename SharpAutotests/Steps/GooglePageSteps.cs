@@ -24,6 +24,7 @@ namespace SharpAutotests
         [When(@"I add ""(.*)"" to search field")]
         public void WhenIAddToSearchField(string searchText)
         {
+            WebDriverFactory.Driver.WaitForPageLoaded();
             GooglePage = Init.PageFactory.CreateInstance<GooglePage>();
             GooglePage.SearchField.SendKeys(searchText);
         }

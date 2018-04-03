@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Config\ConfigReader.cs" />
     <Compile Include="Config\Settings.cs" />
+    <Compile Include="Extensions\WebDriverExtensions.cs" />
     <Compile Include="Extensions\WebElementExtensions.cs" />
     <Compile Include="Factories\Init.cs" />
     <Compile Include="Factories\PageObjectFactory.cs" />
