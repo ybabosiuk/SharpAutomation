@@ -16,7 +16,7 @@ namespace SharpAutotests.Helpers
 
         public static void CreateLogFile()
         {
-            string dir = @"..\Log\";
+            var dir = System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\" + "Log\\";
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
