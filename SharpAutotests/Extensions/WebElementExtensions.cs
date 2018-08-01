@@ -10,7 +10,6 @@ namespace SharpAutotests.Extensions
 {
     public static class WebElementExtensions
     {
-    
         public static void SelectDropdownList(this IWebElement element, string value)
         {
             var select = new SelectElement(element);

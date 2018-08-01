@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SharpAutotests.Factories;
 using SharpAutotests.Helpers;
 using SharpAutotests.Pages;
@@ -10,13 +11,18 @@ namespace SharpAutotests.Steps
     [Binding]
     public class W3SchoolsSteps
     {
+        private readonly IWebDriver driver;
         SimpleTableHelper tableHelper;
+
+        public W3SchoolsSteps(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
 
         [Given(@"I go to w3schools page")]
         public void GivenIGoToWschoolsPage()
         {
-            WebDriverFactory.Driver.Url = "https://www.w3schools.com/html/html_tables.asp";
-            LogHelpers.Write("Browser is opened");
+            driver.Url = "https://www.w3schools.com/html/html_tables.asp";
         }
 
         [When(@"I get simple table")]

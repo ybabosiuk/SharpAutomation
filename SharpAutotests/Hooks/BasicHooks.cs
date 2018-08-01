@@ -1,4 +1,7 @@
-﻿using SharpAutotests.Config;
+﻿using BoDi;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using SharpAutotests.Config;
 using SharpAutotests.Factories;
 using SharpAutotests.Helpers;
 using System;
@@ -10,34 +13,34 @@ using TechTalk.SpecFlow;
 namespace SharpAutotests.Hooks
 {
     [Binding]
-    public sealed class BasicHooks
+    public class BasicHooks
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
-        public BasicHooks()
+        private readonly IObjectContainer objectContainer;
+
+        private IWebDriver driver;
+
+        public BasicHooks(IObjectContainer objectContainer)
         {
-            ConfigReader.SetFrameworkSettings();
+            this.objectContainer = objectContainer;
+
+           // ConfigReader.SetFrameworkSettings();
         }
 
         [BeforeScenario]
         public void BeforeScenario()
         {
-            WebDriverFactory.InitBrowser(Settings.BrowserType);
-            LogHelpers.CreateLogFile();
-            Init.PageFactory = new PageObjectFactory(WebDriverFactory.Driver);
-        }
-
-        [AfterFeature]
-        public static void AfterFeature()
-        {
-            WebDriverFactory.CloseDriver(Settings.BrowserType);
+            //WebDriverFactory.InitBrowser(Settings.BrowserType);
+            driver = new FirefoxDriver();
+            objectContainer.RegisterInstanceAs<IWebDriver>(this.driver);
+            Init.PageFactory = new PageObjectFactory(driver);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            WebDriverFactory.CloseDriver(Settings.BrowserType);
-            LogHelpers.Close();
+            driver.Quit();
         }
     }
 }

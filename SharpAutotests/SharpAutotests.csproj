@@ -80,14 +80,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>w3schools.feature</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\LogHelpers.cs" />
     <Compile Include="Helpers\TableData.cs" />
     <Compile Include="Helpers\SimpleTableHelper.cs" />
     <Compile Include="Hooks\BasicHooks.cs" />
     <Compile Include="Pages\SchoolTablePage.cs" />
     <Compile Include="Steps\GooglePageSteps.cs" />
-    <Compile Include="Hooks\FirefoxHooks.cs" />
-    <Compile Include="Hooks\ChromeHooks.cs" />
     <Compile Include="Pages\BasePages\BaseObject.cs" />
     <Compile Include="Pages\BasePages\IPageObject.cs" />
     <Compile Include="Pages\GooglePage.cs" />

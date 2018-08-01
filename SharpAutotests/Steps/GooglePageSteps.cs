@@ -6,19 +6,26 @@ using System;
 using System.Threading;
 using TechTalk.SpecFlow;
 using SharpAutotests.Extensions;
+using OpenQA.Selenium;
 
 namespace SharpAutotests
 {
     [Binding]
     public class GoToGoogleSteps
     {
+
+        private readonly IWebDriver driver;
         private GooglePage GooglePage { get; set; }
+
+        public GoToGoogleSteps(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
 
         [Given(@"user go to Google page")]
         public void GivenUserGoToGooglePage()
         {
-            WebDriverFactory.Driver.Url = "https://google.com";
-            LogHelpers.Write("Browser is opened");
+            driver.Url = "https://google.com";
         }
 
         [When(@"I add ""(.*)"" to search field")]
