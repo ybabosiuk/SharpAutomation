@@ -1,17 +1,22 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
+using SharpAutotests.Config;
+using System;
 using System.Collections.Generic;
 
 namespace SharpAutotests.Factories
 {
-    class WebDriverFactory
+    public class WebDriverFactory
     {
         public enum BrowserType
         {
             Chrome,
             Firefox,
-            IE
+            IE,
+            RemoteChrome,
+            RemoteFirefox
         }
 
         public static BrowserType ReturnBrowserType(string type)
@@ -24,6 +29,10 @@ namespace SharpAutotests.Factories
                     return BrowserType.Firefox;
                 case "IE":
                     return BrowserType.IE;
+                case "RemoteChrome":
+                    return BrowserType.RemoteChrome;
+                case "RemoteFirefox":
+                    return BrowserType.RemoteFirefox;
                 default:
                     return BrowserType.Chrome;
             }
@@ -33,10 +42,10 @@ namespace SharpAutotests.Factories
         private static readonly IDictionary<BrowserType, IWebDriver> Drivers = new Dictionary<BrowserType, IWebDriver>();
 
         public static IWebDriver Driver { get; private set; }
-    
-        public static void InitBrowser(BrowserType browserName)
+
+        public static void InitBrowser(Settings settings)
         {
-            switch (browserName)
+            switch (settings.BrowserType)
             {
                 case BrowserType.Firefox:
                     if (Driver == null)
@@ -51,6 +60,43 @@ namespace SharpAutotests.Factories
                     {
                         Driver = new ChromeDriver();
                         Drivers.Add(BrowserType.Chrome, Driver);
+                    }
+                    break;
+                case BrowserType.RemoteChrome:
+                    if (Driver == null)
+                    {
+                        //var caps = new DesiredCapabilities(settings.Browser, settings.BrowserVersion, new Platform(PlatformType.Any));
+                        //caps.SetCapability("enableVNC", true);
+                        var options = new ChromeOptions
+                        {
+                            AcceptInsecureCertificates = true
+                        };
+                        options.AddAdditionalCapability("version", settings.BrowserVersion, true);
+                        options.AddAdditionalCapability("platform", "Any", true);
+                        options.AddAdditionalCapability("enableVNC", true, true);
+                        Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
+                        Drivers.Add(BrowserType.RemoteChrome, Driver);
+                        var allowsDetection = Driver as IAllowsFileDetection;
+                        if (allowsDetection != null)
+                        {
+                            allowsDetection.FileDetector = new LocalFileDetector();
+                        }
+                    }
+                    break;
+                case BrowserType.RemoteFirefox:
+                    if (Driver == null)
+                    {
+                        var options = new FirefoxOptions();
+                        options.AddAdditionalCapability("version", settings.BrowserVersion, true);
+                        options.AddAdditionalCapability("platform", "Any", true);
+                        options.AddAdditionalCapability("enableVNC", true, true);
+                        Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
+                        Drivers.Add(BrowserType.RemoteFirefox, Driver);
+                        var allowsDetection = Driver as IAllowsFileDetection;
+                        if (allowsDetection != null)
+                        {
+                            allowsDetection.FileDetector = new LocalFileDetector();
+                        }
                     }
                     break;
             }
