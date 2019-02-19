@@ -34,3 +34,5 @@ Scenario: 4. Check search results count on Result Page
 	| SpecFlow 3 with .Net Core ... |
 	| Training                      |
 	
+	
+	

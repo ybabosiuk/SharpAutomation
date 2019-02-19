@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using SharpAutotests.Extensions;
 
 namespace SharpAutotests.Pages
 {
@@ -34,13 +35,11 @@ namespace SharpAutotests.Pages
 
         public bool SearchResultsExists()
         {
-            return SearchResult.Displayed;
+            return WebElementExtensions.IsElementPresent(SearchResult);
         }
 
         public bool IsSubLinkAvaliable(string subLinkText)
-        {
-            //return driver.FindElement(By.LinkText(subLinkText)).Displayed;
-           
+        {         
            foreach(IWebElement subLink in ResultSubLinks)
             {
                if (subLink.Text == subLinkText)
@@ -53,7 +52,7 @@ namespace SharpAutotests.Pages
 
         public bool IsLinkWithTextExists(string subLinkText)
         {
-            return driver.FindElement(By.LinkText(subLinkText)).Displayed;
+            return WebElementExtensions.IsElementPresent(driver, By.LinkText(subLinkText));
         }
 
     }

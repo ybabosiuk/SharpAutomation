@@ -28,20 +28,28 @@ namespace SharpAutotests.Extensions
             return select.AllSelectedOptions;
         }
 
-        public static void AssertElementPresent(this IWebElement element)
+        public static bool IsElementPresent(IWebDriver driver,By by)
         {
-            if (!IsElementPresent(element))
-                throw new Exception(string.Format("Element Not Present exception"));
+            try
+            {
+                bool elem = driver.FindElement(by).Displayed;
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+                throw;
+            }
         }
 
-        private static bool IsElementPresent(IWebElement element)
+        public static bool IsElementPresent(IWebElement element)
         {
             try
             {
                 bool elem = element.Displayed;
                 return true;
             }
-            catch (Exception ex)
+            catch (NoSuchElementException)
             {
                 return false;
                 throw;
