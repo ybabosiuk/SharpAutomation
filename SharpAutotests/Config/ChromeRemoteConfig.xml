@@ -3,7 +3,7 @@
     <Browser>chrome</Browser>
     <Enviroment>QA</Enviroment>
     <BrowserVersion>71.0</BrowserVersion>
-    <RemoteUri>http://172.27.36.116:4444/wd/hub</RemoteUri>
+    <RemoteUri>RemoteUri</RemoteUri>
     <BrowserType>RemoteChrome</BrowserType>
     <Width>1920</Width>
     <Height>1080</Height>
