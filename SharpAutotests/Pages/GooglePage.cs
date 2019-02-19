@@ -9,9 +9,9 @@ namespace SharpAutotests.Pages
 {
     class GooglePage : BaseObject
     {
-        public IWebElement SearchField => driver.FindElement(By.Id("lst-ib"));
-        public IWebElement SearchButton => driver.FindElement(By.CssSelector("input.lsb"));
-        public IWebElement List => driver.FindElement(By.Id("ires"));
+        private IWebElement SearchField => driver.FindElement(By.CssSelector("input[type='text']"));
+        private IWebElement SearchButton => driver.FindElement(By.CssSelector("input[type='submit']"));
+        
 
         string pageUrl = "";
 
@@ -21,6 +21,17 @@ namespace SharpAutotests.Pages
         }
 
         public GooglePage(IWebDriver driver) : base(driver) {}
+
+        public void EnterSearchQuery(string query)
+        {
+            SearchField.SendKeys(query);
+        }
+
+        public void SubmitSearch()
+        {
+            SearchButton.Click();
+        }
+
 
     }
 }

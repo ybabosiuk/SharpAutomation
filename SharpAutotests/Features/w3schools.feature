@@ -7,8 +7,8 @@
 Scenario: Add two numbers
 	Given I go to w3schools page
 	When I get simple table
-	And I pick 3 row in "Company" column 
-	Then text in cell is "Ernst Handel"
+	And I pick 3 row in 'Company' column 
+	Then text in cell is 'Ernst Handel'
 
 
 

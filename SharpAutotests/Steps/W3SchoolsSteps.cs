@@ -37,13 +37,13 @@ namespace SharpAutotests.Steps
 
         string result;
 
-        [When(@"I pick (.*) row in ""(.*)"" column")]
+        [When(@"I pick (.*) row in '(.*)' column")]
         public void WhenIPickRowInColumn(int row, string columnName)
         {
             result = tableHelper.ReadCell(columnName, row);
         }
 
-        [Then(@"text in cell is ""(.*)""")]
+        [Then(@"text in cell is '(.*)'")]
         public void ThenTextInCellIs(string expectedValue)
         {
             Assert.AreEqual(result, expectedValue);

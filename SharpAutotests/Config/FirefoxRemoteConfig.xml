@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Browser>firefox</Browser>
+  <Enviroment>QA</Enviroment>
+  <BrowserVersion>64</BrowserVersion>
+  <RemoteUri>RemoteUri</RemoteUri>
+  <BrowserType>RemoteFirefox</BrowserType>
+  <Width>1920</Width>
+  <Height>1080</Height>
+</Settings>

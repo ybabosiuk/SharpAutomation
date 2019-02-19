@@ -1,13 +1,12 @@
 ﻿using BoDi;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.Extensions;
 using SharpAutotests.Config;
 using SharpAutotests.Factories;
-using SharpAutotests.Helpers;
+using SharpAutotests.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
 using TechTalk.SpecFlow;
 
 namespace SharpAutotests.Hooks
@@ -25,22 +24,30 @@ namespace SharpAutotests.Hooks
         {
             this.objectContainer = objectContainer;
 
-           // ConfigReader.SetFrameworkSettings();
+           
         }
 
         [BeforeScenario]
         public void BeforeScenario()
         {
-            //WebDriverFactory.InitBrowser(Settings.BrowserType);
-            driver = new FirefoxDriver();
-            objectContainer.RegisterInstanceAs<IWebDriver>(this.driver);
+            var settings = ConfigReader.GetFrameworkSettings();
+            WebDriverFactory.InitBrowser(settings);
+            driver = WebDriverFactory.Driver;
+            driver.Manage().Window.Size = new Size(settings.Width, settings.Height); ;
+            objectContainer.RegisterInstanceAs(this.driver);
             Init.PageFactory = new PageObjectFactory(driver);
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            driver.Quit();
+            if (ScenarioContext.Current.TestError != null)
+            {
+                var date = DateTime.Now.ToString("dd_MMMM_hh_mm_ss_tt");
+                BrowserScreenshotTaker.TakeBrowserScreen(driver, date + ".png");
+            }
+             //driver.Quit();
+            driver.Manage().Cookies.DeleteAllCookies();
         }
     }
 }
