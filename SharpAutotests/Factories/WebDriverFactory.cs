@@ -51,7 +51,7 @@ namespace SharpAutotests.Factories
                     if (Driver == null)
                     {
                         Driver = new FirefoxDriver();
-                        Drivers.Add(BrowserType.Firefox, Driver);
+                        AddToDrivers(BrowserType.Firefox, Driver);
                     }
                     break;
 
@@ -59,7 +59,7 @@ namespace SharpAutotests.Factories
                     if (Driver == null)
                     {
                         Driver = new ChromeDriver();
-                        Drivers.Add(BrowserType.Chrome, Driver);
+                        AddToDrivers(BrowserType.Chrome, Driver);
                     }
                     break;
                 case BrowserType.RemoteChrome:
@@ -75,7 +75,7 @@ namespace SharpAutotests.Factories
                         options.AddAdditionalCapability("platform", "Any", true);
                         options.AddAdditionalCapability("enableVNC", true, true);
                         Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
-                        Drivers.Add(BrowserType.RemoteChrome, Driver);
+                        AddToDrivers(BrowserType.RemoteChrome, Driver);
                         var allowsDetection = Driver as IAllowsFileDetection;
                         if (allowsDetection != null)
                         {
@@ -91,7 +91,7 @@ namespace SharpAutotests.Factories
                         options.AddAdditionalCapability("platform", "Any", true);
                         options.AddAdditionalCapability("enableVNC", true, true);
                         Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
-                        Drivers.Add(BrowserType.RemoteFirefox, Driver);
+                        AddToDrivers(BrowserType.RemoteFirefox, Driver);
                         var allowsDetection = Driver as IAllowsFileDetection;
                         if (allowsDetection != null)
                         {
@@ -124,6 +124,18 @@ namespace SharpAutotests.Factories
             }
             Drivers.Clear();
             Driver = null;
+        }
+
+        private static void AddToDrivers(BrowserType browserType, IWebDriver driver)
+        {
+            if (Drivers.ContainsKey(browserType))
+            {
+                //Do nothing 
+            }
+            else
+            { 
+                Drivers.Add(browserType, driver);
+            }
         }
     }
 }

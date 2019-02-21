@@ -8,7 +8,12 @@ namespace SharpAutotests.Config
     {
         public static Settings GetFrameworkSettings()
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\" + "\\Config\\ChromeRemoteConfig.xml";
+            var configFile = Environment.GetEnvironmentVariable("CONFIGTOUSE", EnvironmentVariableTarget.User);
+            if(string.IsNullOrEmpty(configFile))
+            {
+                configFile = "GlobalConfig.xml";
+            }
+            string path = AppDomain.CurrentDomain.BaseDirectory + "\\..\\..\\" + $"\\Config\\{configFile}";
             string xmlInputData = File.ReadAllText(path);
             return SerializerXML.Deserialize<Settings>(xmlInputData);
         }

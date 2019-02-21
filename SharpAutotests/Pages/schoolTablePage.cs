@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 
 namespace SharpAutotests.Pages
 {
-    class SchoolTablePage : BaseObject
+    class SchoolTablePage : BasePage
     {
         public IWebElement Table => driver.FindElement(By.Id("customers"));  
 

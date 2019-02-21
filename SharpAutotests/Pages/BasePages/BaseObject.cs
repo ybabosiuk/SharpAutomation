@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SharpAutotests.Pages
 {
-    class BaseObject : IPageObject
+    class BasePage : IPageObject
     {
         protected IWebDriver driver;
 
-        public BaseObject(IWebDriver driver)
+        public BasePage(IWebDriver driver)
         {
             this.driver = driver;
         }

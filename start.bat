@@ -1,3 +1,7 @@
-"%~dp0\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" --labels=All --out=TestResult.txt "--result=TestResult.xml;format=nunit2" "%~dp0\SharpAutotests\bin\Debug\SharpAutotests.dll"
+msbuild.exe %~dp0SharpAutotests.sln -target:NotInSlnfolder:Rebuild;NewFolder\InSolutionFolder:Clean
 
-%~dp0\packages\SpecFlow.2.3.1\tools\specflow.exe nunitexecutionreport %~dp0\SharpAutotests\SharpAutotests.csproj /out:MyResult.html
+set CONFIGTOUSE="ChromeRemoteConfig.xml"
+
+"%~dp0packages\NUnit.ConsoleRunner.3.9.0\tools\nunit3-console.exe" --labels=All --out=TestResult.txt "--result=TestResult.xml;format=nunit2" "%~dp0SharpAutotests\bin\Debug\SharpAutotests.dll"
+
+%~dp0packages\SpecFlow.2.4.1\tools\specflow.exe nunitexecutionreport --ProjectFile %~dp0SharpAutotests\SharpAutotests.csproj --xmlTestResult TestResult.xml --testOutput TestResult.txt --OutputFile TestResult.html

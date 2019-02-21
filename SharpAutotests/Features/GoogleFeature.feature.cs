@@ -71,11 +71,11 @@ namespace SharpAutotests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("1. Go to Google and search some text")]
+        [NUnit.Framework.DescriptionAttribute("1. Go to Google and search some info")]
         [NUnit.Framework.CategoryAttribute("mytag")]
         [NUnit.Framework.TestCaseAttribute("SpecFlow", null)]
         [NUnit.Framework.TestCaseAttribute("Cucumber", null)]
-        public virtual void _1_GoToGoogleAndSearchSomeText(string text, string[] exampleTags)
+        public virtual void _1_GoToGoogleAndSearchSomeInfo(string text, string[] exampleTags)
         {
             string[] @__tags = new string[] {
                     "mytag"};
@@ -83,7 +83,7 @@ namespace SharpAutotests.Features
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1. Go to Google and search some text", null, @__tags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1. Go to Google and search some info", null, @__tags);
 #line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
