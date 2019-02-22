@@ -1,13 +1,9 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SharpAutotests.Extensions;
 
 namespace SharpAutotests.Pages
 {
-    class GooglePage : BaseObject
+    class GooglePage : BasePage
     {
         private IWebElement SearchField => driver.FindElement(By.CssSelector("input[type='text']"));
         private IWebElement SearchButton => driver.FindElement(By.CssSelector("input[type='submit']"));
@@ -32,6 +28,9 @@ namespace SharpAutotests.Pages
             SearchButton.Click();
         }
 
-
+       public bool? IsMainElementPresented(string cssLocators)
+        {
+            return WebElementExtensions.IsElementPresent(driver, By.CssSelector(cssLocators));
+        }
     }
 }

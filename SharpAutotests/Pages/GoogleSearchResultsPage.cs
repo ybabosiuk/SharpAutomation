@@ -8,7 +8,7 @@ using SharpAutotests.Extensions;
 
 namespace SharpAutotests.Pages
 {
-    class GoogleSearchResultsPage : BaseObject
+    class GoogleSearchResultsPage : BasePage
     {
         public GoogleSearchResultsPage(IWebDriver driver) : base(driver)
         {

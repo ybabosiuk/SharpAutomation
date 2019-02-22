@@ -4,7 +4,7 @@
 	I want to be told the sum of two numbers
 
 @mytag
-Scenario Outline: 1. Go to Google and search some text
+Scenario Outline: 1. Go to Google and search some info
     Given user go to Google page
     When I add '<text>' to search field
     And I click on Search button

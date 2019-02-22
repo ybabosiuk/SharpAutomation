@@ -190,3 +190,5 @@ FakesAssemblies/
 .vs/Deloitte.Connect/lut/0/buildstate.lut
 .vs/Deloitte.Connect/lut/16324/buildstate.lut
 .vs/
+TestResult.html
+TestResult.txt

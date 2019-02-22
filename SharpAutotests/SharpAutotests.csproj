@@ -83,24 +83,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GoogleFeature.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\w3schools.feature.cs">
+    <Compile Include="Features\GoogleMainPageCheck.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>w3schools.feature</DependentUpon>
+      <DependentUpon>GoogleMainPageCheck.feature</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TableData.cs" />
     <Compile Include="Helpers\SimpleTableHelper.cs" />
     <Compile Include="Hooks\BasicHooks.cs" />
+    <Compile Include="Pages\Class1.cs" />
+    <Compile Include="Steps\CommonSteps.cs" />
     <Compile Include="Pages\GoogleSearchResultsPage.cs" />
     <Compile Include="Pages\SchoolTablePage.cs" />
-    <Compile Include="Steps\GooglePageSteps.cs" />
+    <Compile Include="Steps\GoogleResultPageSteps.cs" />
     <Compile Include="Pages\BasePages\BaseObject.cs" />
     <Compile Include="Pages\BasePages\IPageObject.cs" />
     <Compile Include="Pages\GooglePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\GoogleMainPageSteps.cs" />
+    <Compile Include="Steps\MainPageElements.cs" />
     <Compile Include="Steps\SubUrlsText.cs" />
     <Compile Include="Steps\W3SchoolsSteps.cs" />
     <Compile Include="Utils\DriverScreenshotTaker.cs" />
+    <Compile Include="Utils\FilesUtil.cs" />
     <Compile Include="Utils\XmlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,16 +117,16 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GoogleFeature.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\w3schools.feature">
+    <None Include="Features\GoogleMainPageCheck.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>w3schools.feature.cs</LastGenOutput>
+      <LastGenOutput>GoogleMainPageCheck.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\ChromeRemoteConfig.xml" />
     <Content Include="Config\FirefoxRemoteConfig.xml" />
-    <Content Include="Config\GlobalConfig.xml" />
+    <Content Include="Config\ChromeConfig.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
