@@ -128,13 +128,17 @@ namespace SharpAutotests.Factories
 
         private static void AddToDrivers(BrowserType browserType, IWebDriver driver)
         {
-            if (Drivers.ContainsKey(browserType))
-            {
-                //Do nothing 
-            }
-            else
-            { 
-                Drivers.Add(browserType, driver);
+            //Lock adding Driver to Drivers Dictionary for parallel run
+            lock(Drivers)
+                {
+                if (Drivers.ContainsKey(browserType))
+                {
+                    //Do nothing 
+                }
+                else
+                {
+                    Drivers.Add(browserType, driver);
+                }
             }
         }
     }

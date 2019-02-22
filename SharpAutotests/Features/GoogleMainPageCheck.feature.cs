@@ -95,9 +95,6 @@ this.ScenarioInitialize(scenarioInfo);
             table1.AddRow(new string[] {
                         "LoginButton",
                         "a[href*=\"https://accounts.google.com/ServiceLogin?\"]"});
-            table1.AddRow(new string[] {
-                        "",
-                        ""});
 #line 6
  testRunner.Then("I verify that a main Google page locators are shown", ((string)(null)), table1, "Then ");
 #line hidden

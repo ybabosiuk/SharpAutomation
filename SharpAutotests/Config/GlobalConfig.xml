@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<SharpAutotests>
-  <RunSettings>
-    <Browser>Chrome</Browser>
-    <Enviroment>QA</Enviroment>
-  </RunSettings>
-</SharpAutotests>

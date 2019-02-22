@@ -16,7 +16,7 @@ namespace SharpAutotests.Hooks
 
         private readonly IObjectContainer objectContainer;
 
-        private IWebDriver driver;
+        private static IWebDriver driver;
 
         private readonly ScenarioContext scenarioContext;
 
@@ -30,12 +30,12 @@ namespace SharpAutotests.Hooks
         public void BeforeScenario()
         {
             var screensPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\" + TestCostants.ScreenShotPath;
-            FilesUtil.DeleteAllFilesFromDir(screensPath);
+            //FilesUtil.DeleteAllFilesFromDir(screensPath);
             var settings = ConfigReader.GetFrameworkSettings();
             WebDriverFactory.InitBrowser(settings);
             driver = WebDriverFactory.Driver;
             driver.Manage().Window.Size = new Size(settings.Width, settings.Height); ;
-            objectContainer.RegisterInstanceAs(this.driver);
+            objectContainer.RegisterInstanceAs(driver);
             Init.PageFactory = new PageObjectFactory(driver);
         }
 
@@ -44,11 +44,16 @@ namespace SharpAutotests.Hooks
         {
             if (scenarioContext.TestError != null)
             {
-                var date = DateTime.Now.ToString("dd_MMMM_hh_mm_ss_tt");
+                var date = DateTime.Now.ToString("dd_MMMM_hh_mm_ss_ff");
                 BrowserScreenshotTaker.TakeBrowserScreen(driver, date + ".png");
             }
-             //driver.Quit();
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
             driver.Manage().Cookies.DeleteAllCookies();
+            driver.Quit();
         }
     }
 }

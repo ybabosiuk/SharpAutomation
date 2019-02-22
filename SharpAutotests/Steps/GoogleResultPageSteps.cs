@@ -34,7 +34,7 @@ namespace SharpAutotests
             var results = ResultPage.GetSearchResults();
             foreach(string result in results)
             {
-                Assert.That(result.Contains(searchText), $"{result} don't contains search query {searchText}");
+                Assert.That(result.Contains(searchText), $"Search result {result} dones't contain search query {searchText}");
             }
         }
 

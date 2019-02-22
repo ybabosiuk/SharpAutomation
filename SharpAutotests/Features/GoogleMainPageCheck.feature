@@ -9,4 +9,3 @@ Scenario: 1. User checks a main menu navigation
 | MailButton      | a[href="https://mail.google.com/mail/?tab=wm"]       |
 | PicsButton      | a[href*="https://www.google.com.ua/imghp?"]          |
 | LoginButton     | a[href*="https://accounts.google.com/ServiceLogin?"] |
-|                 |                                                      |

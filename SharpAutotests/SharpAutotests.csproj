@@ -126,7 +126,7 @@
   <ItemGroup>
     <Content Include="Config\ChromeRemoteConfig.xml" />
     <Content Include="Config\FirefoxRemoteConfig.xml" />
-    <Content Include="Config\GlobalConfig.xml" />
+    <Content Include="Config\ChromeConfig.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
