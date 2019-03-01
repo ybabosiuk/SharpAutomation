@@ -28,7 +28,7 @@ namespace SharpAutotests.Extensions
             return select.AllSelectedOptions;
         }
 
-        public static bool IsElementPresent(IWebDriver driver,By by)
+        public static bool IsElementPresent(this IWebDriver driver, By by)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace SharpAutotests.Extensions
             }
         }
 
-        public static bool IsElementPresent(IWebElement element)
+        public static bool IsElementPresent(this IWebElement element)
         {
             try
             {

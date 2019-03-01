@@ -32,7 +32,6 @@ Scenario: 4. Check search results count on Result Page
 	| Getting Started               |
 	| SpecFlow Documentation        |
 	| SpecFlow 3 with .Net Core ... |
-	| Training                      |
 	
 	
 	

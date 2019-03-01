@@ -5,6 +5,7 @@ using SharpAutotests.Factories;
 using SharpAutotests.Utils;
 using System;
 using System.Drawing;
+using System.Threading;
 using TechTalk.SpecFlow;
 
 namespace SharpAutotests.Hooks
@@ -26,17 +27,21 @@ namespace SharpAutotests.Hooks
             this.scenarioContext = scenarioContext ?? throw new ArgumentNullException("scenarioContext");
         }
 
+        [BeforeTestRun]
+        public static void BeforeTestRun()
+        {
+            var settings = ConfigReader.GetFrameworkSettings();
+            driver = WebDriverFactory.InitBrowser(settings);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Window.Size = new Size(settings.Width, settings.Height);
+        }
+
         [BeforeScenario]
         public void BeforeScenario()
         {
             var screensPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\" + TestCostants.ScreenShotPath;
             //FilesUtil.DeleteAllFilesFromDir(screensPath);
-            var settings = ConfigReader.GetFrameworkSettings();
-            WebDriverFactory.InitBrowser(settings);
-            driver = WebDriverFactory.Driver;
-            driver.Manage().Window.Size = new Size(settings.Width, settings.Height); ;
             objectContainer.RegisterInstanceAs(driver);
-            Init.PageFactory = new PageObjectFactory(driver);
         }
 
         [AfterScenario]
@@ -54,6 +59,7 @@ namespace SharpAutotests.Hooks
         {
             driver.Manage().Cookies.DeleteAllCookies();
             driver.Quit();
+            WebDriverFactory.CloseDriver(driver);
         }
     }
 }

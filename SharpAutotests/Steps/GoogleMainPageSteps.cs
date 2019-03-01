@@ -12,9 +12,11 @@ namespace SharpAutotests.Steps
     [Binding]
     public class GoogleMainPageSteps : CommonSteps
     {
-        public GoogleMainPageSteps(IWebDriver driver) : base(driver) { }
-
-        private GooglePage GooglePage = Init.PageFactory.CreateInstance<GooglePage>();
+        private GooglePage googlePage;
+        public GoogleMainPageSteps(IWebDriver driver) : base(driver)
+        {
+            googlePage = Init.SetPageObjectFactory(driver).CreateInstance<GooglePage>();
+        }
 
         [Given(@"user go to Google page")]
         public void GivenUserGoToGooglePage()
@@ -25,14 +27,13 @@ namespace SharpAutotests.Steps
         [When(@"I add '(.*)' to search field")]
         public void WhenIAddToSearchField(string searchText)
         {
-            WebDriverFactory.Driver.WaitForPageLoaded();
-            GooglePage.EnterSearchQuery(searchText);
+            googlePage.EnterSearchQuery(searchText);
         }
 
         [When(@"I click on Search button")]
         public void WhenIClickOnSearchButton()
         {
-            GooglePage.SubmitSearch();
+            googlePage.SubmitSearch();
         }
 
 
@@ -49,7 +50,7 @@ namespace SharpAutotests.Steps
             var mainPageElements = table.CreateSet<MainPageElements>();
             foreach (var pageElement in mainPageElements)
             {
-                Assert.IsTrue(GooglePage.IsMainElementPresented(pageElement.CssLocators), $"Locator {pageElement.PageElementName} is not present on Main Goole page");
+                Assert.IsTrue(googlePage.IsMainElementPresented(pageElement.CssLocators), $"Locator {pageElement.PageElementName} is not present on Main Goole page");
             }
         }
 
