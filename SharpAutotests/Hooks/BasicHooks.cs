@@ -11,13 +11,13 @@ using TechTalk.SpecFlow;
 namespace SharpAutotests.Hooks
 {
     [Binding]
-    public class BasicHooks
+    public sealed class BasicHooks
     {
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
         private readonly IObjectContainer objectContainer;
 
-        private static IWebDriver driver;
+        private IWebDriver driver;
 
         private readonly ScenarioContext scenarioContext;
 
@@ -30,10 +30,7 @@ namespace SharpAutotests.Hooks
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            var settings = ConfigReader.GetFrameworkSettings();
-            driver = WebDriverFactory.InitBrowser(settings);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            driver.Manage().Window.Size = new Size(settings.Width, settings.Height);
+          
         }
 
         [BeforeScenario]
@@ -41,7 +38,11 @@ namespace SharpAutotests.Hooks
         {
             var screensPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\" + TestCostants.ScreenShotPath;
             //FilesUtil.DeleteAllFilesFromDir(screensPath);
-            objectContainer.RegisterInstanceAs(driver);
+            var settings = ConfigReader.GetFrameworkSettings();
+            objectContainer.RegisterInstanceAs(WebDriverFactory.InitBrowser(settings));
+            driver = objectContainer.Resolve<IWebDriver>();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Manage().Window.Size = new Size(settings.Width, settings.Height);
         }
 
         [AfterScenario]
@@ -52,14 +53,12 @@ namespace SharpAutotests.Hooks
                 var date = DateTime.Now.ToString("dd_MMMM_hh_mm_ss_ff");
                 BrowserScreenshotTaker.TakeBrowserScreen(driver, date + ".png");
             }
+            WebDriverFactory.CloseDriver(driver);
         }
 
         [AfterTestRun]
         public static void AfterTestRun()
         {
-            driver.Manage().Cookies.DeleteAllCookies();
-            driver.Quit();
-            WebDriverFactory.CloseDriver(driver);
         }
     }
 }

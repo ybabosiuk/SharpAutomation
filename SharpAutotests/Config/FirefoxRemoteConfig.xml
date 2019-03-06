@@ -3,7 +3,7 @@
   <Browser>firefox</Browser>
   <Enviroment>QA</Enviroment>
   <BrowserVersion>64</BrowserVersion>
-  <RemoteUri></RemoteUri>
+  <RemoteUri>http://localhost:4444/wd/hub</RemoteUri>
   <BrowserType>RemoteFirefox</BrowserType>
   <Width>1920</Width>
   <Height>1080</Height>

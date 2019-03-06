@@ -4,8 +4,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using SharpAutotests.Config;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace SharpAutotests.Factories
 {
@@ -78,8 +76,8 @@ namespace SharpAutotests.Factories
 
         public static void CloseDriver(IWebDriver driver)
         {
-            driver.Quit();
             driver.Close();
+            driver.Quit();
             driver = null;
         }
 
@@ -91,21 +89,5 @@ namespace SharpAutotests.Factories
                 allowsDetection.FileDetector = new LocalFileDetector();
             }
         }
-
-        //private static void AddToDrivers(BrowserType browserType, IWebDriver driver)
-        //{
-        //    //Lock adding Driver to Drivers Dictionary for parallel run
-        //    lock(Drivers)
-        //        {
-        //        if (Drivers.ContainsKey(browserType))
-        //        {
-        //            //Do nothing 
-        //        }
-        //        else
-        //        {
-        //            Drivers.Add(browserType, driver);
-        //        }
-        //    }
-        //}
     }
 }
