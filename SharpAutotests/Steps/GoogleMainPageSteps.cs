@@ -15,7 +15,7 @@ namespace SharpAutotests.Steps
         private GooglePage googlePage;
         public GoogleMainPageSteps(IWebDriver driver) : base(driver)
         {
-            googlePage = Init.SetPageObjectFactory(driver).CreateInstance<GooglePage>();
+            googlePage = Init.GetPageObject(driver).CreateInstance<GooglePage>();
         }
 
         [Given(@"user go to Google page")]

@@ -17,7 +17,7 @@ namespace SharpAutotests
 
         public GoToGoogleSteps(IWebDriver driver) : base(driver)
         {
-            resultPage = Init.SetPageObjectFactory(driver).CreateInstance<GoogleSearchResultsPage>();
+            resultPage = Init.GetPageObject(driver).CreateInstance<GoogleSearchResultsPage>();
         }
 
         [Then(@"list with results is not empty")]

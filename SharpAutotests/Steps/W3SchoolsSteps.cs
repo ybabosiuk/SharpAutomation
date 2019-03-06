@@ -27,7 +27,7 @@ namespace SharpAutotests.Steps
         [When(@"I get simple table")]
         public void WhenIGetSimpleTable()
         {
-            var schoolPage = Init.SetPageObjectFactory(driver).CreateInstance<SchoolTablePage>();
+            var schoolPage = Init.GetPageObject(driver).CreateInstance<SchoolTablePage>();
 
             tableHelper = new SimpleTableHelper();
             tableHelper.ReadTable(schoolPage.Table);
