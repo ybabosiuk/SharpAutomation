@@ -11,12 +11,11 @@ namespace SharpAutotests.Steps
     [Binding]
     public class W3SchoolsSteps
     {
-        private readonly IWebDriver driver;
+        private static readonly IWebDriver driver;
         SimpleTableHelper tableHelper;
 
         public W3SchoolsSteps(IWebDriver driver)
         {
-            this.driver = driver;
         }
 
         [Given(@"I go to w3schools page")]
@@ -28,7 +27,7 @@ namespace SharpAutotests.Steps
         [When(@"I get simple table")]
         public void WhenIGetSimpleTable()
         {
-            var schoolPage = Init.PageFactory.CreateInstance<SchoolTablePage>();
+            var schoolPage = Init.GetPageObject(driver).CreateInstance<SchoolTablePage>();
 
             tableHelper = new SimpleTableHelper();
             tableHelper.ReadTable(schoolPage.Table);

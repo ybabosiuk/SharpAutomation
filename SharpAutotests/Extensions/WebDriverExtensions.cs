@@ -47,7 +47,7 @@ namespace SharpAutotests.Extensions
 
         internal static object ExecuteJS(this IWebDriver driver, string script)
         {
-            return ((IJavaScriptExecutor)WebDriverFactory.Driver).ExecuteScript(script);
+            return ((IJavaScriptExecutor)driver).ExecuteScript(script);
         }
     }
 }

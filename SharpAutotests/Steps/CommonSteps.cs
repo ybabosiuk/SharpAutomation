@@ -5,7 +5,8 @@ using TechTalk.SpecFlow;
 
 namespace SharpAutotests.Pages
 {
-   public class CommonSteps
+    [Binding]
+    public class CommonSteps
     {
         private readonly IWebDriver driver;
 
@@ -18,7 +19,7 @@ namespace SharpAutotests.Pages
         public void GivenIOpenUrl(string url)
         {
             driver.Url = url;
-            WebDriverFactory.Driver.WaitForPageLoaded();
+            driver.WaitForPageLoaded();
         }
 
     }

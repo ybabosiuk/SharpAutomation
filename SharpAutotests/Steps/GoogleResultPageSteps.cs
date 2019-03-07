@@ -13,25 +13,23 @@ namespace SharpAutotests
     [Binding]
     public class GoToGoogleSteps: CommonSteps
     {
-
-       
-        private GoogleSearchResultsPage ResultPage = Init.PageFactory.CreateInstance<GoogleSearchResultsPage>();
+        private GoogleSearchResultsPage resultPage;
 
         public GoToGoogleSteps(IWebDriver driver) : base(driver)
         {
+            resultPage = Init.GetPageObject(driver).CreateInstance<GoogleSearchResultsPage>();
         }
 
         [Then(@"list with results is not empty")]
         public void ThenListWithResultsIsNotEmpty()
         {
-            WebDriverFactory.Driver.WaitForPageLoaded();
-            Assert.True(ResultPage.SearchResultsExists());
+            Assert.True(resultPage.SearchResultsExists());
         }
 
         [Then(@"I verfiy that a search result contains keyword '(.*)' on Results Page")]
         public void ThenIVerfiyThatASearchResultContainsKeywordOnResultsPage(string searchText)
         {
-            var results = ResultPage.GetSearchResults();
+            var results = resultPage.GetSearchResults();
             foreach(string result in results)
             {
                 Assert.That(result.Contains(searchText), $"Search result {result} dones't contain search query {searchText}");
@@ -41,7 +39,7 @@ namespace SharpAutotests
         [Then(@"I verfiy that a search results count to (.*) on Results Page")]
         public void ThenIVerfiyThatASearchResultsCountToOnResultsPage(int resultsCount)
         {
-            int actualResultsCount = ResultPage.GetSearchResultsCount();
+            int actualResultsCount = resultPage.GetSearchResultsCount();
             Assert.AreEqual(resultsCount, actualResultsCount);
         }
 
@@ -51,13 +49,13 @@ namespace SharpAutotests
             foreach (var row in table.Rows)
             {
                 var expectedLinkText = row["SubLinkText"];
-                //Assert.IsTrue(ResultPage.IsSubLinkAvaliable(expectedLinkText));
+                Assert.IsTrue(resultPage.IsSubLinkAvaliable(expectedLinkText));
                 
             }
             var subUrlsText = table.CreateSet<SubUrlsText>();
             foreach(var subLink in subUrlsText)
             {
-                Assert.IsTrue(ResultPage.IsLinkWithTextExists(subLink.SubLinkText));
+                Assert.IsTrue(resultPage.IsLinkWithTextExists(subLink.SubLinkText));
             }
            
         }

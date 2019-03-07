@@ -4,7 +4,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using SharpAutotests.Config;
 using System;
-using System.Collections.Generic;
 
 namespace SharpAutotests.Factories
 {
@@ -36,109 +35,58 @@ namespace SharpAutotests.Factories
                 default:
                     return BrowserType.Chrome;
             }
-
         }
 
-        private static readonly IDictionary<BrowserType, IWebDriver> Drivers = new Dictionary<BrowserType, IWebDriver>();
-
-        public static IWebDriver Driver { get; private set; }
-
-        public static void InitBrowser(Settings settings)
+        public static IWebDriver InitBrowser(Settings settings)
         {
+            IWebDriver driver;
             switch (settings.BrowserType)
             {
                 case BrowserType.Firefox:
-                    if (Driver == null)
-                    {
-                        Driver = new FirefoxDriver();
-                        AddToDrivers(BrowserType.Firefox, Driver);
-                    }
+                    driver = new FirefoxDriver();
                     break;
-
                 case BrowserType.Chrome:
-                    if (Driver == null)
-                    {
-                        Driver = new ChromeDriver();
-                        AddToDrivers(BrowserType.Chrome, Driver);
-                    }
+                default:
+                    driver = new ChromeDriver();
                     break;
                 case BrowserType.RemoteChrome:
-                    if (Driver == null)
+                    var chromeOptions = new ChromeOptions
                     {
-                        //var caps = new DesiredCapabilities(settings.Browser, settings.BrowserVersion, new Platform(PlatformType.Any));
-                        //caps.SetCapability("enableVNC", true);
-                        var options = new ChromeOptions
-                        {
-                            AcceptInsecureCertificates = true
-                        };
-                        options.AddAdditionalCapability("version", settings.BrowserVersion, true);
-                        options.AddAdditionalCapability("platform", "Any", true);
-                        options.AddAdditionalCapability("enableVNC", true, true);
-                        Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
-                        AddToDrivers(BrowserType.RemoteChrome, Driver);
-                        var allowsDetection = Driver as IAllowsFileDetection;
-                        if (allowsDetection != null)
-                        {
-                            allowsDetection.FileDetector = new LocalFileDetector();
-                        }
-                    }
+                        AcceptInsecureCertificates = true
+                    };
+                    chromeOptions.AddAdditionalCapability("version", settings.BrowserVersion, true);
+                    chromeOptions.AddAdditionalCapability("platform", "Any", true);
+                    chromeOptions.AddAdditionalCapability("enableVNC", true, true);
+                    driver = new RemoteWebDriver(new Uri(settings.RemoteUri), chromeOptions);
+                    DetectFile(driver);
+                    // var sessionIdProperty = typeof(RemoteWebDriver).GetProperty("SessionId", BindingFlags.Instance | BindingFlags.NonPublic);
+                    //var sessionId = sessionIdProperty.GetValue(driver, null) as SessionId;
                     break;
                 case BrowserType.RemoteFirefox:
-                    if (Driver == null)
-                    {
-                        var options = new FirefoxOptions();
-                        options.AddAdditionalCapability("version", settings.BrowserVersion, true);
-                        options.AddAdditionalCapability("platform", "Any", true);
-                        options.AddAdditionalCapability("enableVNC", true, true);
-                        Driver = new RemoteWebDriver(new Uri(settings.RemoteUri), options);
-                        AddToDrivers(BrowserType.RemoteFirefox, Driver);
-                        var allowsDetection = Driver as IAllowsFileDetection;
-                        if (allowsDetection != null)
-                        {
-                            allowsDetection.FileDetector = new LocalFileDetector();
-                        }
-                    }
+                    var firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.AddAdditionalCapability("version", settings.BrowserVersion, true);
+                    firefoxOptions.AddAdditionalCapability("platform", "Any", true);
+                    firefoxOptions.AddAdditionalCapability("enableVNC", true, true);
+                    driver = new RemoteWebDriver(new Uri(settings.RemoteUri), firefoxOptions);
+                    DetectFile(driver);
                     break;
             }
+            return driver;
         }
 
-        public static void CloseDriver(BrowserType browserType)
+        public static void CloseDriver(IWebDriver driver)
         {
-            if (Drivers.ContainsKey(browserType))
+            driver.Close();
+            driver.Quit();
+            driver = null;
+        }
+
+        private static void DetectFile(IWebDriver driver)
+        {
+            var allowsDetection = driver as IAllowsFileDetection;
+            if (allowsDetection != null)
             {
-                var driver = Drivers[browserType];
-                driver.Close();
-                driver.Quit();
-            }
-            Drivers.Clear();
-            Driver = null;
-        }
-
-        public static void CloseAllDrivers()
-        {
-            foreach (var key in Drivers.Keys)
-            {
-                var driver = Drivers[key];
-                driver.Close();
-                driver.Quit();
-            }
-            Drivers.Clear();
-            Driver = null;
-        }
-
-        private static void AddToDrivers(BrowserType browserType, IWebDriver driver)
-        {
-            //Lock adding Driver to Drivers Dictionary for parallel run
-            lock(Drivers)
-                {
-                if (Drivers.ContainsKey(browserType))
-                {
-                    //Do nothing 
-                }
-                else
-                {
-                    Drivers.Add(browserType, driver);
-                }
+                allowsDetection.FileDetector = new LocalFileDetector();
             }
         }
     }

@@ -156,8 +156,6 @@ this.ScenarioInitialize(scenarioInfo);
                         "SpecFlow Documentation"});
             table1.AddRow(new string[] {
                         "SpecFlow 3 with .Net Core ..."});
-            table1.AddRow(new string[] {
-                        "Training"});
 #line 30
  testRunner.Then("I verfiy that a first search result contains sublinks on Results Page:", ((string)(null)), table1, "Then ");
 #line hidden
